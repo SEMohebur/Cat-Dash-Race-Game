@@ -52,7 +52,7 @@ const App = () => {
     setCats((prevCats) => prevCats.map((cat) => ({ ...cat, position: 0 })));
   };
   return (
-    <div className="bg-gray-100 min-h-screen  p-4 sm:p-6 md:p-8 overflow-x-auto">
+    <div className="bg-gray-100 min-h-screen w-full p-4 sm:p-6 md:p-8 overflow-x-auto">
       <h1 className="text-center font-bold text-3xl mb-16">🐱 Cat Dash Race</h1>
 
       {/* TRACK AREA */}
@@ -64,7 +64,7 @@ const App = () => {
             return (
               <div
                 key={i}
-                className={`relative w-10 lg:w-20 h-80 ${
+                className={`relative w-8 lg:w-20 h-80 ${
                   cat.name == winner ? "bg-success" : "bg-white"
                 } rounded shadow flex items-end justify-center`}
               >
@@ -77,22 +77,25 @@ const App = () => {
                 </div>
 
                 {/* Name */}
-                <div className="absolute -bottom-6 text-sm font-medium">
+                <div className="absolute -bottom-6 text-[8px] lg:text-sm font-medium">
                   {cat.name}
                 </div>
                 <div className=" flex flex-col">
                   {cat.name == winner && (
                     <div>
-                      <img src={winImg} alt="" className=" h-12 rounded-full" />
+                      <img
+                        src={winImg}
+                        alt=""
+                        className=" h-6 lg:h-12 rounded-full"
+                      />
                     </div>
                   )}
-                  <p className=" text-center">{cat.position}</p>
+                  <p className=" text-center text-[8px] lg:text-sm">
+                    {cat.position}
+                  </p>
                 </div>
 
-                <div
-                  style={{ bottom: `${107}%` }}
-                  className="absolute  w-full h-1 bg-red-500"
-                ></div>
+                <div className="absolute mb-82 lg:mb-85 w-full h-1 bg-red-500"></div>
               </div>
             );
           })}

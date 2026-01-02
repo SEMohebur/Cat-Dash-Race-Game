@@ -23,7 +23,7 @@ const Cat = ({ isPlaying }) => {
         lottieRef={lottieRef}
         animationData={catRun}
         loop
-        className={`h-20 mb-0 ${catPlay ? "rotate-[90deg]" : ""}`}
+        className={`h-10 lg:h-20 mb-0 ${catPlay ? "rotate-[90deg]" : ""}`}
       />
     </div>
   );
