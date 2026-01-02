@@ -110,7 +110,7 @@ const App = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen w-full p-4 sm:p-6 md:p-8 overflow-x-auto">
+    <div className="bg-gray-100 min-h-screen w-full p-4 sm:p-6 md:p-8 overflow-x-auto text-gray-700">
       <h1 className="text-center font-bold text-3xl ">Cat Dash Race</h1>
 
       <div className=" flex justify-center">
