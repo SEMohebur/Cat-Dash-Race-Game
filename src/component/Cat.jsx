@@ -2,7 +2,7 @@ import Lottie from "lottie-react";
 import catRun from "../assets/Momo Run.json";
 import { useEffect, useRef, useState } from "react";
 
-const Cat = ({ isPlaying }) => {
+const Cat = ({ isPlaying, winner }) => {
   const lottieRef = useRef();
   const [catPlay, setCatPlay] = useState(true);
   // console.log(isPlaying);
@@ -16,7 +16,11 @@ const Cat = ({ isPlaying }) => {
       setCatPlay(false);
       lottieRef.current.pause();
     }
+    if (winner) {
+      lottieRef.current.pause();
+    }
   }, [isPlaying]);
+
   return (
     <div className="w-12 sm:w-16">
       <Lottie

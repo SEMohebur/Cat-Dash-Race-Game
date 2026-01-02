@@ -1,6 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import Cat from "./component/Cat";
 import winImg from "../src/assets/win.jpg";
+import mewSound from "./assets/mew.mp3";
+import cheering from "./assets/cheering.mp3";
+import running from "./assets/run.mp3";
+import startSound from "./assets/gameStartSound.mp3";
+import resetSoundE from "./assets/resetSound.mp3";
+import Cheers from "./component/Cheers";
+import CheringSong from "./assets/CheeringSong.mp3";
+import CatDance from "./component/CatDance";
+
+import KashingCheer from "./component/kashingCheer";
 
 const App = () => {
   const [cats, setCats] = useState([
@@ -20,6 +30,45 @@ const App = () => {
   const [winner, setWinner] = useState(null);
   const intervalRef = useRef(null);
 
+  const catCall = () => {
+    const mew = new Audio(mewSound);
+    mew.volume = 0.1;
+    mew.play();
+
+    const cheer = new Audio(cheering);
+    cheer.volume = 0.1;
+    cheer.play();
+  };
+
+  const catRun = () => {
+    const run = new Audio(running);
+    run.volume = 0.1;
+    run.play();
+  };
+
+  const readySound = () => {
+    const start = new Audio(startSound);
+    start.volume = 0.1;
+    start.play();
+  };
+
+  const resetSoundEffect = () => {
+    const resetS = new Audio(resetSoundE);
+    resetS.volume = 0.1;
+    resetS.play();
+  };
+
+  const cheeringSong = () => {
+    const song = new Audio(CheringSong);
+    song.volume = 0.4;
+    song.play();
+
+    setTimeout(() => {
+      song.pause();
+      song.currentTime = 0;
+    }, 10000);
+  };
+
   useEffect(() => {
     if (play) {
       intervalRef.current = setInterval(() => {
@@ -34,10 +83,13 @@ const App = () => {
           if (win) {
             setWinner(win.name);
             setPlay(false);
+            catCall();
+            cheeringSong();
           }
 
           return newCats;
         });
+        catRun();
       }, 500);
     } else {
       clearInterval(intervalRef.current);
@@ -50,14 +102,23 @@ const App = () => {
     clearInterval(intervalRef.current);
     setWinner(null);
     setCats((prevCats) => prevCats.map((cat) => ({ ...cat, position: 0 })));
+    resetSoundEffect();
   };
+  const gameStartBtn = () => {
+    setPlay(!play);
+    readySound();
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen w-full p-4 sm:p-6 md:p-8 overflow-x-auto">
-      <h1 className="text-center font-bold text-3xl mb-16">🐱 Cat Dash Race</h1>
+      <h1 className="text-center font-bold text-3xl ">Cat Dash Race</h1>
 
+      <div className=" flex justify-center">
+        <CatDance />
+      </div>
       {/* TRACK AREA */}
 
-      <div className="flex justify-center mt-10 p-10">
+      <div className="flex justify-center mt-2 lg:mt-8 p-10">
         <div className="flex gap-1 lg:gap-3 ">
           {cats.map((cat, i) => {
             const safePosition = Math.min(cat.position, 100);
@@ -73,7 +134,8 @@ const App = () => {
                   className="absolute transition-all duration-500"
                   style={{ bottom: `${safePosition}%` }}
                 >
-                  <Cat isPlaying={cat.position} />
+                  {winner === cat.name ? <KashingCheer /> : ""}
+                  <Cat isPlaying={cat.position} winner={winner} />
                 </div>
 
                 {/* Name */}
@@ -91,27 +153,39 @@ const App = () => {
                     </div>
                   )}
                   <p className=" text-center text-[8px] lg:text-sm">
-                    {cat.position}
+                    {cat.position}m
                   </p>
                 </div>
 
-                <div className="absolute mb-82 lg:mb-85 w-full h-1 bg-red-500"></div>
+                <div
+                  className={`absolute mb-82 lg:mb-85 w-full h-1 ${
+                    winner == cat.name ? " bg-success" : "bg-red-500"
+                  }`}
+                ></div>
               </div>
             );
           })}
         </div>
       </div>
-      <div className=" mt-10 flex justify-center">
-        <button
-          onClick={() => setPlay(!play)}
-          className=" btn bg-indigo-500 text-white"
-        >
-          Game Start
-        </button>
 
-        <button onClick={reset} className=" btn  bg-red-400 text-white">
-          Reset Race
-        </button>
+      <div className=" flex justify-center">{winner ? <Cheers /> : ""}</div>
+      <p className=" text-center font-bold text-success">{winner}</p>
+      <p className=" text-center font-thin">{winner ? "First" : ""}</p>
+
+      <div className=" mt-3 flex justify-center gap-3">
+        {winner ? (
+          <button onClick={reset} className=" btn  bg-red-400 text-white">
+            Reset Race
+          </button>
+        ) : (
+          <button
+            disabled={winner}
+            onClick={gameStartBtn}
+            className=" btn bg-indigo-500 text-white"
+          >
+            Game Start
+          </button>
+        )}
       </div>
     </div>
   );
