@@ -1,4 +1,5 @@
-# 🐱 Cat Dash Race
+
+Cat Dash Race
 
 live link https://lighthearted-mermaid-d37a86.netlify.app/
 
@@ -6,8 +7,7 @@ live link https://lighthearted-mermaid-d37a86.netlify.app/
 Cat Dash is a browser-based racing game where 10 cats compete in a race. Each cat moves at a randomized speed, making the race unpredictable and fun. The game is built using React and supports real-time animation and state updates.
 
 ---
-
-## 🎮 Key Features
+ Key Features
 - Randomized and unbiased race outcomes  
 - Real-time animation and state updates  
 - Custom sound effects (mew, cheering, running)  
@@ -17,7 +17,7 @@ Cat Dash is a browser-based racing game where 10 cats compete in a race. Each ca
 
 ---
 
-## 🛠 Technology Used
+Technology Used
 - **Frontend:** React.js  
 - **Styling:** Tailwind CSS + DaisyUI  
 - **Animation:** Lottie (lottie-react)  
@@ -26,7 +26,7 @@ Cat Dash is a browser-based racing game where 10 cats compete in a race. Each ca
 
 ---
 
-## ⚙️ Game Mechanics
+Game Mechanics
 1. 10 cats start from 0% position  
 2. Race state updates every 0.5 seconds using `setInterval`  
 3. Each tick randomly increases each cat's position  
@@ -38,7 +38,7 @@ Cat Dash is a browser-based racing game where 10 cats compete in a race. Each ca
 
 
 
-## 🔊 Sound Effects
+Sound Effects
 - `mew.mp3` – Cat meow  
 - `cheering.mp3` – Audience cheering  
 - `run.mp3` – Cat running  
@@ -48,7 +48,4 @@ Cat Dash is a browser-based racing game where 10 cats compete in a race. Each ca
 
 ---
 
-## 🚀 How to Run
-1. Clone the repository:  
-   ```bash
-   git clone <repo-link>
+
