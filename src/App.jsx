@@ -78,7 +78,7 @@ const App = () => {
             return { ...cat, position: Math.min(cat.position + move, 100) };
           });
 
-          // Winner detect
+          // Winner findout
           const win = newCats.find((cat) => cat.position >= 100);
           if (win) {
             setWinner(win.name);
@@ -89,7 +89,6 @@ const App = () => {
 
           return newCats;
         });
-        catRun();
       }, 500);
     } else {
       clearInterval(intervalRef.current);
@@ -107,6 +106,7 @@ const App = () => {
   const gameStartBtn = () => {
     setPlay(!play);
     readySound();
+    catRun();
   };
 
   return (
@@ -187,6 +187,21 @@ const App = () => {
           </button>
         )}
       </div>
+      {winner ? (
+        <p className="text-sm text-gray-600 text-center">
+          Click the Reset button to play again
+        </p>
+      ) : (
+        <div className=" text-center">
+          <h2 className="text-lg font-semibold mb-2"> Game Rules</h2>
+          <ul className=" list-inside space-y-1 text-gray-700">
+            <li>Total 10 cats will race</li>
+            <li>Each cat moves at a random speed</li>
+            <li>The cat that reaches the 🏁 finish line first is the winner</li>
+            <li>The race cannot be paused once it starts</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
