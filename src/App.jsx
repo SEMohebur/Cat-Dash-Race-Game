@@ -11,6 +11,8 @@ import CheringSong from "./assets/CheeringSong.mp3";
 import CatDance from "./component/CatDance";
 import { MdOutlineReplay } from "react-icons/md";
 import { FaPlay } from "react-icons/fa";
+import { FaPause } from "react-icons/fa6";
+import { GiPodiumWinner } from "react-icons/gi";
 
 import KashingCheer from "./component/kashingCheer";
 
@@ -182,7 +184,15 @@ const App = () => {
               {winner ? <Cheers /> : ""}
             </div>
             <p className=" text-center font-bold text-success">{winner}</p>
-            <p className=" text-center font-thin">{winner ? "First" : ""}</p>
+            <div className=" flex text-center justify-center">
+              <p>
+                {winner ? (
+                  <GiPodiumWinner className=" text-4xl text-success" />
+                ) : (
+                  ""
+                )}
+              </p>
+            </div>
           </div>
 
           <div className=" flex justify-center">
@@ -204,7 +214,7 @@ const App = () => {
             onClick={gameStartBtn}
             className=" btn bg-indigo-500 text-white"
           >
-            <FaPlay /> Play
+            {play ? <FaPause /> : <FaPlay />} Play
           </button>
         )}
       </div>
