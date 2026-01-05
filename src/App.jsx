@@ -9,6 +9,8 @@ import resetSoundE from "./assets/resetSound.mp3";
 import Cheers from "./component/Cheers";
 import CheringSong from "./assets/CheeringSong.mp3";
 import CatDance from "./component/CatDance";
+import { MdOutlineReplay } from "react-icons/md";
+import { FaPlay } from "react-icons/fa";
 
 import KashingCheer from "./component/kashingCheer";
 
@@ -29,6 +31,8 @@ const App = () => {
   const [play, setPlay] = useState(false);
   const [winner, setWinner] = useState(null);
   const intervalRef = useRef(null);
+
+  const [modalOpen, setIsModalOpwn] = useState(false);
 
   const catCall = () => {
     const mew = new Audio(mewSound);
@@ -85,6 +89,7 @@ const App = () => {
             setPlay(false);
             catCall();
             cheeringSong();
+            setIsModalOpwn(!modalOpen);
           }
 
           return newCats;
@@ -102,6 +107,7 @@ const App = () => {
     setWinner(null);
     setCats((prevCats) => prevCats.map((cat) => ({ ...cat, position: 0 })));
     resetSoundEffect();
+    setIsModalOpwn(!modalOpen);
   };
   const gameStartBtn = () => {
     setPlay(!play);
@@ -168,30 +174,42 @@ const App = () => {
         </div>
       </div>
 
-      <div className=" flex justify-center">{winner ? <Cheers /> : ""}</div>
-      <p className=" text-center font-bold text-success">{winner}</p>
-      <p className=" text-center font-thin">{winner ? "First" : ""}</p>
+      {/* modal  */}
+      <dialog open={modalOpen} className="modal">
+        <div className="modal-box">
+          <div>
+            <div className=" flex justify-center">
+              {winner ? <Cheers /> : ""}
+            </div>
+            <p className=" text-center font-bold text-success">{winner}</p>
+            <p className=" text-center font-thin">{winner ? "First" : ""}</p>
+          </div>
+
+          <div className=" flex justify-center">
+            <button onClick={reset} className=" btn  bg-red-400 text-white">
+              <MdOutlineReplay /> Play Again
+            </button>
+          </div>
+          <p className="text-sm text-gray-600 text-center">
+            Click <span className="font-medium">Play Again</span> to start a new
+            race
+          </p>
+        </div>
+      </dialog>
 
       <div className=" mt-3 flex justify-center gap-3">
-        {winner ? (
-          <button onClick={reset} className=" btn  bg-red-400 text-white">
-            Reset Race
-          </button>
-        ) : (
+        {!winner && (
           <button
-            disabled={winner}
+            disabled={play}
             onClick={gameStartBtn}
             className=" btn bg-indigo-500 text-white"
           >
-            Game Start
+            <FaPlay /> Play
           </button>
         )}
       </div>
-      {winner ? (
-        <p className="text-sm text-gray-600 text-center">
-          Click the Reset button to play again
-        </p>
-      ) : (
+
+      {!winner && (
         <div className=" text-center">
           <h2 className="text-lg font-semibold mb-2"> Game Rules</h2>
           <ul className=" list-inside space-y-1 text-gray-700">
